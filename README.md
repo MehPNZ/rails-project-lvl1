@@ -1,5 +1,5 @@
 [![hexlet-check](https://github.com/MehPNZ/rails-project-lvl1/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MehPNZ/rails-project-lvl1/actions/workflows/hexlet-check.yml)
-
+[![CI](https://github.com/MehPNZ/rails-project-lvl1/actions/workflows/makefile.yml/badge.svg)](https://github.com/MehPNZ/rails-project-lvl1/actions/workflows/makefile.yml)
 
 # HexletCode
 
