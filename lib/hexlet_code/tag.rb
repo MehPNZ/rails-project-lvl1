@@ -6,7 +6,7 @@ module HexletCode
     TAGS_PAIR = %w[div].freeze
     class << self
       def build(tag, *attributes, &block)
-        block.nil? ? to_html(tag, attributes) : %(#{to_html(tag, attributes)}#{block.call}</#{tag}>)
+        block.nil? ? to_html(tag, attributes) : %(#{to_html(tag, attributes)}#{yield}</#{tag}>)
       end
 
      private
