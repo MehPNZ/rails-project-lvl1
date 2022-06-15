@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 module HexletCode
-  # class Tag
+  TAGS_PAIR = %w[div].freeze
+
+  def self.form_for(_obj, url = nil, &block)
+    action = url.nil? ? '#' : url[:url]
+    Tag.build('form', action: action, method: 'post', &block)
+  end
+
   class Tag
-    TAGS_PAIR = %w[div].freeze
     class << self
       def build(tag, *attributes, &block)
         block.nil? ? to_html(tag, attributes) : %(#{to_html(tag, attributes)}#{yield}</#{tag}>)
