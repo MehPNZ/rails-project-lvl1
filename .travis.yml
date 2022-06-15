@@ -1,0 +1,10 @@
+sudo: false
+
+language: ruby
+rvm:
+ - 3.0
+ - jruby
+
+branches:
+  only:
+    - master

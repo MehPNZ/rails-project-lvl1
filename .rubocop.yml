@@ -1,11 +1,5 @@
-# AllCops:
-#   NewCops: enable
+require:
+  - rubocop-performance
 
-# Style/Documentation:
-#   Enabled: false
-
-# Gemspec/RequiredRubyVersion:
-#   Enabled: false
-
-# Metrics/MethodLength:
-#   Enabled: false
+AllCops:
+  NewCops: enable
