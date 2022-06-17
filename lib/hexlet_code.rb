@@ -4,6 +4,8 @@ require_relative 'hexlet_code/version'
 require_relative 'hexlet_code/tag'
 # module
 module HexletCode
+  class Error < StandardError; end
+
   def initialize(_)
     @tags = []
 
@@ -22,28 +24,41 @@ module HexletCode
     end
   end
 
-  def input(obj, as_type = nil)
+  def input(obj, attrs = {})
+    h_attr = h_attr(obj)
+
     @tags << Tag.build('label', for: obj.to_s) { obj.to_s.capitalize }
-    if as_type.nil?
-      @tags << if public_send(obj).nil?
-                 Tag.build('input', name: obj.to_s, type: 'text')
-               else
-                 Tag.build('input', name: obj.to_s, type: 'text', value: public_send(obj))
-               end
-    else
-      set_as obj, as_type
-    end
+
+    h_attr[:value] = public_send(obj) unless public_send(obj).nil?
+
+    as?(obj, attrs, h_attr)
   end
 
-  def submit
-    @tags << Tag.build('input', name: 'commit', type: 'submit', value: 'Save')
+  def submit(name = 'Save')
+    @tags << Tag.build('input', name: 'commit', type: 'submit', value: name)
   end
 
-  def set_as(obj, as_type)
-    raise ArgumentError, "Undefined as: #{as_type[:as]}" unless as_type.fetch(:as) == :text
+  private
 
-    @tags << Tag.build('textarea', cols: 20, rows: 40, name: obj.to_s) { public_send(obj) }
+  def as?(obj, attrs, h_attr)
+    @tags << if attrs.key?(:as)
+               set_as(obj, attrs, h_attr)
+             else
+               Tag.build('input', h_attr.merge(attrs.to_h).sort.to_h)
+             end
   end
 
-  class Error < StandardError; end
+  def h_attr(obj)
+    h_attr = {}
+    h_attr[:name] = obj.to_s
+    h_attr[:type] = 'text'
+    h_attr
+  end
+
+  def set_as(obj, attrs, h_attr)
+    attrs.delete(:as)
+    h_attr.delete(:type)
+    h_attr.delete(:value)
+    Tag.build('textarea', h_attr.merge(attrs.to_h).sort.to_h) { public_send(obj) }
+  end
 end

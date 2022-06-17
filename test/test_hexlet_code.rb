@@ -35,24 +35,24 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_input_with_as_url
-    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    user = User.new job: 'hexlet', gender: 'm'
 
     test_file = fixture 'test/fixture/input_with_as_url.html'
 
     result = HexletCode.form_for user, url: '/users' do |f|
-      f.input :name, as: :text
+      f.input :name, as: :text, rows: 50, cols: 50
     end
     assert_equal test_file, result
   end
 
   def test_input_not_url_with_as
-    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    user = User.new job: 'hexlet', gender: 'm'
 
     test_file = fixture 'test/fixture/input_not_url_with_as.html'
 
     result = HexletCode.form_for user do |f|
       f.input :name
-      f.input :job, as: :text
+      f.input :job, as: :text, rows: 50, cols: 50
     end
     assert_equal test_file, result
   end
