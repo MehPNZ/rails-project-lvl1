@@ -1,19 +1,16 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 require_relative '../lib/hexlet_code'
-require_relative '/Users/aleksandrmihailov/Hexlet/Project_1/rails-project-lvl1/lib/hexlet_code/tag.rb'
-#include HexletCode
-#include HexletCode
 
-
+# class TestHexletCode
 class TestHexletCode < Minitest::Test
-
-  class User < Struct.new(:name, :job, :gender, keyword_init: true)
+  User = Struct.new(:name, :job, :gender, keyword_init: true) do
     include HexletCode
   end
 
   def fixture(file_path)
-    f = File.new(file_path, "r:UTF-8")
+    f = File.new(file_path, 'r:UTF-8')
     test_file = f.read
     f.close
     test_file
@@ -33,15 +30,15 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for
     user = User.new name: 'rob'
-    assert_equal %(<form action="/users" method="post">\n</form>), HexletCode.form_for(user, url: '/users') {}
-    assert_equal %(<form action="#" method="post">\n</form>), HexletCode.form_for(user) {}
+    assert_equal %(<form action="/users" method="post">\n</form>), HexletCode.form_for(user, url: '/users') { '' }
+    assert_equal %(<form action="#" method="post">\n</form>), HexletCode.form_for(user) { '' }
   end
 
   def test_input_with_as_url
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 
-    test_file = fixture "test/fixture/input_with_as_url.html"
-   
+    test_file = fixture 'test/fixture/input_with_as_url.html'
+
     result = HexletCode.form_for user, url: '/users' do |f|
       f.input :name, as: :text
     end
@@ -51,8 +48,8 @@ class TestHexletCode < Minitest::Test
   def test_input_not_url_with_as
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 
-    test_file = fixture "test/fixture/input_not_url_with_as.html"
-    
+    test_file = fixture 'test/fixture/input_not_url_with_as.html'
+
     result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job, as: :text
@@ -63,20 +60,20 @@ class TestHexletCode < Minitest::Test
   def test_input_not_as
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 
-    test_file =fixture "test/fixture/input_not_as.html"
-    
+    test_file = fixture 'test/fixture/input_not_as.html'
+
     result = HexletCode.form_for user do |f|
       f.input :name
     end
 
-  assert_equal test_file, result
+    assert_equal test_file, result
   end
 
   def test_input_submit
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 
-    test_file = fixture "test/fixture/input_submit.html"
-    
+    test_file = fixture 'test/fixture/input_submit.html'
+
     result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job
@@ -88,8 +85,8 @@ class TestHexletCode < Minitest::Test
   def test_input_submit_not_value
     user = User.new job: 'hexlet', gender: 'm'
 
-    test_file = fixture "test/fixture/input_submit_not_value.html"
-    
+    test_file = fixture 'test/fixture/input_submit_not_value.html'
+
     result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job
