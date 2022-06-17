@@ -16,7 +16,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+HexletCode.form_for user do |f|
+  f.input :name
+end
 
 ## Development
 
@@ -26,7 +28,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code.
+Bug reports and pull requests are welcome on GitHub at https://github.com/MehPNZ/hexlet_code.
 
 ## License
 

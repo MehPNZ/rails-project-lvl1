@@ -19,8 +19,37 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+Example:
+```ruby
+HexletCode.form_for user do |f|
+  f.input :name
+end
+```
+=> 
+```html
+<form action="#" method="post">
+    ...
+  <input name="name" type="text" value="rob">
+</form>
+```
+-------------------------------
+Generation with as option
 
+Example:
+```ruby
+HexletCode.form_for user do |f|
+  f.input :name
+  f.input :job, as: :text
+end
+```
+=> 
+```html
+<form action="#" method="post">
+    ...
+  <input name="name" type="text" value="rob">
+  <textarea cols="20" rows="40" name="job">hexlet</textarea>
+</form>
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -29,7 +58,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code.
+Bug reports and pull requests are welcome on GitHub at https://github.com/MehPNZ/rails-project-lvl1.
 
 ## License
 
