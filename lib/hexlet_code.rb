@@ -15,7 +15,7 @@ module HexletCode
   def self.form_for(obj, url = nil, &block)
     action = url.nil? ? '#' : url[:url]
     begin
-      result = yield(obj).map(&:to_s).join
+      result = yield(obj).map { |el| "\n  #{el}" }.join.squeeze("\n")
       Tag.build('form', action: action, method: 'post') { result }
     rescue StandardError
       Tag.build('form', action: action, method: 'post', &block)
@@ -23,21 +23,26 @@ module HexletCode
   end
 
   def input(obj, as_type = nil)
+    @tags << Tag.build('label', for: obj.to_s) { obj.to_s.capitalize }
     if as_type.nil?
-      @tags << Tag.build('input', name: obj.to_s, type: 'text', value: public_send(obj))
+      @tags << if public_send(obj).nil?
+                 Tag.build('input', name: obj.to_s, type: 'text')
+               else
+                 Tag.build('input', name: obj.to_s, type: 'text', value: public_send(obj))
+               end
     else
       set_as obj, as_type
     end
-  rescue NoMethodError => e
-    puts e.message
+  end
+
+  def submit
+    @tags << Tag.build('input', name: 'commit', type: 'submit', value: 'Save')
   end
 
   def set_as(obj, as_type)
-    case as_type[:as]
-    when :text
-      @tags << Tag.build('textarea', cols: 20, rows: 40, name: obj.to_s) { public_send(obj) }
-    else raise ArgumentError, "Undefined AS: #{as_type}"
-    end
+    raise ArgumentError, "Undefined as: #{as_type[:as]}" unless as_type.fetch(:as) == :text
+
+    @tags << Tag.build('textarea', cols: 20, rows: 40, name: obj.to_s) { public_send(obj) }
   end
 
   class Error < StandardError; end
