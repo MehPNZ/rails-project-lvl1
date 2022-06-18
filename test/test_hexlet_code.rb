@@ -3,11 +3,8 @@
 require 'test_helper'
 require_relative '../lib/hexlet_code'
 
-# class TestHexletCode
 class TestHexletCode < Minitest::Test
-  User = Struct.new(:name, :job, :gender, keyword_init: true) do
-    include HexletCode
-  end
+  User = Struct.new(:name, :job, :gender, keyword_init: true)
 
   def fixture(file_path)
     f = File.new(file_path, 'r:UTF-8')
@@ -38,10 +35,11 @@ class TestHexletCode < Minitest::Test
     user = User.new job: 'hexlet', gender: 'm'
 
     test_file = fixture 'test/fixture/input_with_as_url.html'
-
+    puts test_file
     result = HexletCode.form_for user, url: '/users' do |f|
       f.input :name, as: :text, rows: 50, cols: 50
     end
+    puts result
     assert_equal test_file, result
   end
 
@@ -84,9 +82,8 @@ class TestHexletCode < Minitest::Test
 
   def test_input_submit_not_value
     user = User.new job: 'hexlet', gender: 'm'
-
+    # puts user
     test_file = fixture 'test/fixture/input_submit_not_value.html'
-
     result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job
