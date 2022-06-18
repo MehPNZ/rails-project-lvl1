@@ -22,6 +22,8 @@ module HexletCode
     end
 
     def input(obj, attrs = {})
+      raise NoMethodError unless @obj.key?(obj)
+
       h_attr = h_attr(obj)
       @tags << Tag.build('label', for: obj.to_s) { obj.to_s.capitalize }
       h_attr[:value] = @obj.fetch(obj) unless @obj[obj].nil?
