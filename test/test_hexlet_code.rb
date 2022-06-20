@@ -25,12 +25,6 @@ class TestHexletCode < Minitest::Test
     assert_equal %(<label for="email">Email</label>), HexletCode::Tag.build('label', for: 'email') { 'Email' }
   end
 
-  # def test_form_for
-  #   user = User.new name: 'rob'
-  #   assert_equal %(<form action="/users" method="post">\n</form>), HexletCode.form_for(user, url: '/users', ({}))
-  #   assert_equal %(<form action="#" method="post">\n</form>), HexletCode.form_for(user, ({}))
-  # end
-
   def test_input_with_as_url
     user = User.new job: 'hexlet', gender: 'm'
 
@@ -82,7 +76,6 @@ class TestHexletCode < Minitest::Test
 
   def test_input_submit_not_value
     user = User.new job: 'hexlet', gender: 'm'
-    # puts user
     test_file = fixture 'test/fixture/input_submit_not_value.html'
     result = HexletCode.form_for user do |f|
       f.input :name
