@@ -12,12 +12,11 @@ module HexletCode
       @tags = []
       action = url.nil? ? '#' : url[:url]
       @obj = obj.to_h
-      begin
-        result = yield(self).map { |el| "\n  #{el}" }.join.squeeze("\n")
-
-        Tag.build('form', action: action, method: 'post') { result }
-      rescue StandardError
+      result = yield(self)
+      if result.nil?
         Tag.build('form', action: action, method: 'post', &block)
+      else
+        Tag.build('form', action: action, method: 'post') { result.map { |el| "\n  #{el}" }.join.squeeze("\n") }
       end
     end
 

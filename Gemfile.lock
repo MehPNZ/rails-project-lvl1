@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hexlet_code (0.1.2)
+    hexlet_code (0.1.3)
 
 GEM
   remote: https://rubygems.org/
