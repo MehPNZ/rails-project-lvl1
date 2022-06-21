@@ -17,7 +17,6 @@ class TestHexletCode < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-
   def test_input_with_as_url
     user = User.new job: 'hexlet', gender: 'm'
     test_file = fixture 'test/fixture/input_with_as_url.html'

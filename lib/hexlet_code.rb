@@ -27,7 +27,7 @@ module HexletCode
       result[:name] = entity
 
       if result.include?(:as)
-        result = attrs.reject { |key, _value| key == :as }.sort.to_h
+        result = attrs.except(:as).sort.to_h
         @tags << Tag.build('textarea', result) { @model[entity] }
       else
         result[:value] = @model[entity] unless @model.public_send(entity).nil?
