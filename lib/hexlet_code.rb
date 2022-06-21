@@ -8,53 +8,35 @@ module HexletCode
   autoload(:Tag, './hexlet_code/tag')
 
   class << self
-    def form_for(obj, url = nil, &block)
+    INPUT = {
+      type: 'text'
+    }.freeze
+
+    def form_for(model, url = nil)
       @tags = []
       action = url.nil? ? '#' : url[:url]
-      @obj = obj.to_h
+      @model = model
       result = yield(self)
-      if result.nil?
-        Tag.build('form', action: action, method: 'post', &block)
-      else
-        Tag.build('form', action: action, method: 'post') { result.map { |el| "\n  #{el}" }.join.squeeze("\n") }
-      end
+      Tag.build('form', action: action, method: 'post') { result.map { |el| "\n  #{el}" }.join.squeeze("\n") }
     end
 
-    def input(obj, attrs = {})
-      raise NoMethodError unless @obj.key?(obj)
+    def input(entity, attrs = {})
+      @tags << Tag.build('label', for: entity.to_s) { entity.to_s.capitalize }
 
-      h_attr = h_attr(obj)
-      @tags << Tag.build('label', for: obj.to_s) { obj.to_s.capitalize }
-      h_attr[:value] = @obj.fetch(obj) unless @obj[obj].nil?
-      as?(obj, attrs, h_attr)
+      result = attrs
+      result[:name] = entity
+
+      if result.include?(:as)
+        result = attrs.reject { |key, _value| key == :as }.sort.to_h
+        @tags << Tag.build('textarea', result) { @model[entity] }
+      else
+        result[:value] = @model[entity] unless @model.public_send(entity).nil?
+        @tags << Tag.build('input', result.merge(INPUT).sort.to_h)
+      end
     end
 
     def submit(name = 'Save')
       @tags << Tag.build('input', name: 'commit', type: 'submit', value: name)
-    end
-
-  private
-
-    def as?(obj, attrs, h_attr)
-      @tags << if attrs.key?(:as)
-                 set_as(obj, attrs, h_attr)
-               else
-                 Tag.build('input', h_attr.merge(attrs.to_h).sort.to_h)
-               end
-    end
-
-    def h_attr(obj)
-      @h_attr = {}
-      @h_attr[:name] = obj.to_s
-      @h_attr[:type] = 'text'
-      @h_attr
-    end
-
-    def set_as(obj, attrs, h_attr)
-      attrs.delete(:as)
-      h_attr.delete(:type)
-      h_attr.delete(:value)
-      Tag.build('textarea', h_attr.merge(attrs.to_h).sort.to_h) { @obj.fetch(obj) }
     end
 end
 end

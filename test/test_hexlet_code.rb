@@ -17,23 +17,13 @@ class TestHexletCode < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-  def test_build
-    assert_equal '<br>', HexletCode::Tag.build('br')
-    assert_equal %(<img src="path/to/image">), HexletCode::Tag.build('img', src: 'path/to/image')
-    assert_equal %(<input type="submit" value="Save">), HexletCode::Tag.build('input', type: 'submit', value: 'Save')
-    assert_equal %(<label>Email</label>), HexletCode::Tag.build('label') { 'Email' }
-    assert_equal %(<label for="email">Email</label>), HexletCode::Tag.build('label', for: 'email') { 'Email' }
-  end
 
   def test_input_with_as_url
     user = User.new job: 'hexlet', gender: 'm'
-
     test_file = fixture 'test/fixture/input_with_as_url.html'
-    puts test_file
     result = HexletCode.form_for user, url: '/users' do |f|
       f.input :name, as: :text, rows: 50, cols: 50
     end
-    puts result
     assert_equal test_file, result
   end
 
