@@ -20,7 +20,7 @@ module HexletCode
 
       def tag_form_pair(tag, arr, &block)
         if tag == 'form'
-          %(<#{tag} #{arr.join(' ')}>#{yield}\n</#{tag}>)
+          %(<#{tag} #{arr.join(' ')}>#{yield}</#{tag}>)
         else
           block ? %(<#{tag} #{arr.join(' ')}>#{yield}</#{tag}>) : %(<#{tag} #{arr.join(' ')}>)
         end

@@ -17,7 +17,7 @@ module HexletCode
       @model = model
       action = url.nil? ? '#' : url[:url]
       result = yield(self)
-      Tag.build('form', action: action, method: 'post') { result.map { |el| "\n  #{el}" }.join.squeeze("\n") }
+      Tag.build('form', action: action, method: 'post') { result.map(&:to_s).join }
     end
 
     def input(entity, attrs = {})
