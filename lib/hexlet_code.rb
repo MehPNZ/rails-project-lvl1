@@ -14,8 +14,8 @@ module HexletCode
 
     def form_for(model, url = nil)
       @tags = []
-      action = url.nil? ? '#' : url[:url]
       @model = model
+      action = url.nil? ? '#' : url[:url]
       result = yield(self)
       Tag.build('form', action: action, method: 'post') { result.map { |el| "\n  #{el}" }.join.squeeze("\n") }
     end
@@ -26,6 +26,10 @@ module HexletCode
       result = attrs
       result[:name] = entity
 
+      as?(entity, result, attrs)
+    end
+
+    def as?(entity, result, attrs)
       if result.include?(:as)
         result = attrs.except(:as).sort.to_h
         @tags << Tag.build('textarea', result) { @model[entity] }
