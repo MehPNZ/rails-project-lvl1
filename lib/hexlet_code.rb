@@ -7,6 +7,10 @@ module HexletCode
   class Error < StandardError; end
   autoload(:Tag, './hexlet_code/tag')
 
+  class TEXT
+    BUILD = ->(result, &block) { Tag.build('textarea', result, &block) }
+  end
+
   class << self
     INPUT = {
       type: 'text'
@@ -31,12 +35,17 @@ module HexletCode
 
     def as?(entity, result, attrs)
       if result.include?(:as)
+        type = result[:as].to_s.upcase
         result = attrs.except(:as).sort.to_h
-        @tags << Tag.build('textarea', result) { @model[entity] }
+        @tags << const_get("#{type}::BUILD").call(result) { @model[entity] }
       else
-        result[:value] = @model[entity] unless @model.public_send(entity).nil?
-        @tags << Tag.build('input', result.merge(INPUT).sort.to_h)
+        input_build(result, entity)
       end
+    end
+
+    def input_build(result, entity)
+      result[:value] = @model[entity] unless @model.public_send(entity).nil?
+      @tags << Tag.build('input', result.merge(INPUT).sort.to_h)
     end
 
     def submit(name = 'Save')
