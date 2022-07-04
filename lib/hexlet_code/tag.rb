@@ -3,6 +3,15 @@
 # module
 module HexletCode
   # class Tag
+
+  def self.form_for(model, url = nil)
+    @tags = []
+    @model = model
+    action = url.nil? ? '#' : url[:url]
+    result = yield(self)
+    Tag.build('form', action: action, method: 'post') { result.map(&:to_s).join }
+  end
+
   class Tag
     class << self
       def build(tag, *attributes, &block)
