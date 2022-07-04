@@ -11,5 +11,5 @@ gem 'minitest', '~> 5.0'
 
 gem 'minitest-power_assert', '~> 0.3'
 
-gem 'rubocop', '~> 1.30', require: false
-gem 'rubocop-performance', '~>1.14', require: false
+gem 'rubocop' # , '~> 1.30', require: false
+gem 'rubocop-performance' # , '~>1.14', require: false

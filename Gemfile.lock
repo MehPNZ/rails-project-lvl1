@@ -45,8 +45,8 @@ DEPENDENCIES
   minitest (~> 5.0)
   minitest-power_assert (~> 0.3)
   rake (~> 13.0)
-  rubocop (~> 1.30)
-  rubocop-performance (~> 1.14)
+  rubocop
+  rubocop-performance
 
 BUNDLED WITH
    2.3.16

@@ -2,9 +2,10 @@
 
 # module
 module HexletCode
-
   class Text
-  BUILD = ->(result, type = nil, entity = nil, model = nil, &block) { Tag.build('textarea', result, &block) }
+    BUILD = lambda do |*args, &block|
+      result, * = args
+      Tag.build('textarea', result, &block)
+    end
   end
-
 end

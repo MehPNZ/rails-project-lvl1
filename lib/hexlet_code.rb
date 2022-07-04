@@ -12,7 +12,6 @@ module HexletCode
   autoload(:Tag, './hexlet_code/tag')
 
   class << self
-
     def input(entity, options = {})
       @tags << Tag.build('label', for: entity.to_s) { entity.to_s.capitalize }
 
