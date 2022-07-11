@@ -4,8 +4,7 @@
 module HexletCode
   # class Tag
   class Tag
-    class << self
-      def build(tag, *attributes, &block)
+      def self.build(tag, *attributes, &block)
         return %(<#{tag}>) if attributes.empty? && block.nil?
         return %(<#{tag}>#{yield}</#{tag}>) if attributes.empty? && block.nil? == false
 
@@ -15,7 +14,6 @@ module HexletCode
         attrs.each_pair { |key, value| arr << %(#{key}="#{value}") }
 
         block ? %(<#{tag} #{arr.join(' ')}>#{yield}</#{tag}>) : %(<#{tag} #{arr.join(' ')}>)
-      end
     end
   end
 end
