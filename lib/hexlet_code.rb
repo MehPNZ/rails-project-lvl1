@@ -5,7 +5,6 @@ require_relative '../lib/hexlet_code/base'
 # module
 module HexletCode
   class Error < StandardError; end
-  autoload(:Tag, './hexlet_code/tag')
 
   class << self
     def input(entity, options = {})
