@@ -2,9 +2,9 @@
 
 # module
 module HexletCode
+  # textarea
   class Text
-    BUILD = lambda do |*args, &block|
-      result, * = args
+    def self.build(result, &block)
       Tag.build('textarea', result, &block)
     end
   end
