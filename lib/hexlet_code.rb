@@ -1,28 +1,27 @@
 # frozen_string_literal: true
 
+require_relative '../lib/hexlet_code/inputs/text_area'
+require_relative '../lib/hexlet_code/inputs/submit'
+require_relative '../lib/hexlet_code/inputs/input'
+require_relative '../lib/hexlet_code/inputs/label'
+require_relative '../lib/hexlet_code/tag'
+require_relative '../lib/hexlet_code/form'
 require_relative '../lib/hexlet_code/version'
-require_relative '../lib/hexlet_code/text_area'
-require_relative '../lib/hexlet_code/submit'
-require_relative '../lib/hexlet_code/input'
 
 # module
 module HexletCode
   class Error < StandardError; end
-  autoload :Tag, 'hexlet_code/tag'
 
-  class << self
-    def form_for(model, options = {})
-      @tags = []
-      @name = 'input'
-      @model = model
+  def self.form_for(model, options = {})
+    attrs = {
+      action: options[:url].nil? ? '#' : options[:url],
+      method: 'post'
+    }
 
-      attrs = {
-        action: options[:url].nil? ? '#' : options[:url],
-        method: 'post'
-      }
+    form = Form.new(model)
 
-      result = yield(self)
-      Tag.build('form', attrs.merge(options.except(:url)).sort.to_h) { result.map(&:to_s).join }
-    end
+    result = yield(form)
+
+    Tag.build('form', attrs.sort.to_h) { result.join }
   end
 end
