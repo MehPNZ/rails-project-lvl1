@@ -10,7 +10,7 @@ module HexletCode
         value: value,
         name: 'commit'
       }
-      
+
       @tags << Tag.build(@name, attrs.merge(options).sort.to_h)
     end
   end

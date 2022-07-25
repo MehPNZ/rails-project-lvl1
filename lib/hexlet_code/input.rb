@@ -14,7 +14,6 @@ module HexletCode
     end
 
     def label_tag(entity, options = {})
-
       attrs = {
         for: entity.to_s
       }
@@ -28,7 +27,7 @@ module HexletCode
         options = options.except(:as).sort.to_h
         @tags << const_get(type.to_s).build(options) { @model[entity] }
       else
-       default_type(entity, options)
+        default_type(entity, options)
       end
     end
 
