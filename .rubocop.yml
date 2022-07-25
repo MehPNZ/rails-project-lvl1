@@ -1,5 +1,0 @@
-require:
-  - rubocop-performance
-
-AllCops:
-  NewCops: enable

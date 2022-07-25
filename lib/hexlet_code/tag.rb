@@ -5,8 +5,7 @@ module HexletCode
   # class Tag
   class Tag
     def self.build(tag, *attributes, &block)
-      return %(<#{tag}>) if attributes.empty? && block.nil?
-      return %(<#{tag}>#{yield}</#{tag}>) if attributes.empty? && block.nil? == false
+      return %(<#{tag}>) if attributes.empty?
 
       arr = []
       attrs, * = attributes
