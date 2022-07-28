@@ -3,7 +3,6 @@
 module HexletCode
   # class Form
   class Form
-
     def initialize(model)
       @model = model
       @inputs = []
