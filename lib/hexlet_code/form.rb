@@ -3,8 +3,6 @@
 module HexletCode
   # class Form
   class Form
-    # autoload(:Submit, 'inputs/submit.rb')
-    autoload(:Input, 'rails-project-lvl1/lib/hexlet_code/inputs/input.rb')
 
     def initialize(model)
       @model = model
