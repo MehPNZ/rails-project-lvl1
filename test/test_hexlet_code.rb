@@ -7,9 +7,7 @@ require_relative '../lib/hexlet_code/inputs/submit'
 require_relative '../lib/hexlet_code/inputs/input'
 require_relative '../lib/hexlet_code/inputs/label'
 
-
 class TestHexletCode < Minitest::Test
-
   User = Struct.new(:name, :job, :gender, keyword_init: true)
 
   def fixture(file_path)
