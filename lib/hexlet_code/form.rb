@@ -3,25 +3,30 @@
 module HexletCode
   # class Form
   class Form
+    autoload(:Label, 'inputs/label.rb')
+    autoload(:Input, 'inputs/input.rb')
+    autoload(:Text, 'inputs/textarea.rb')
+    autoload(:Submit, 'inputs/submit.rb')
+
     def initialize(model)
       @model = model
-      @tags = []
+      @inputs = []
     end
 
     def input(entity, options = {})
       options[:name] = entity
 
-      @tags << Object.const_get('HexletCode::Inputs::Label').build(entity) { entity.to_s.capitalize }
+      @inputs << Object.const_get('HexletCode::Inputs::Label').build(entity)
 
       type = options[:as] || 'input'
 
       options[:value] = @model[entity] unless @model.public_send(entity).nil?
 
-      @tags << Object.const_get("HexletCode::Inputs::#{type.capitalize}").build(options) { @model[entity] }
+      @inputs << Object.const_get("HexletCode::Inputs::#{type.capitalize}").build(options)
     end
 
     def submit(value = 'Save', options = {})
-      @tags << Object.const_get('HexletCode::Inputs::Submit').build(value, options)
+      @inputs << Object.const_get('HexletCode::Inputs::Submit').build(value, options)
     end
   end
 end

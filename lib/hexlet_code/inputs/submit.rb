@@ -6,12 +6,15 @@ module HexletCode
     # class HexletCode
     class Submit
       def self.build(value, options)
-        attrs = {
-          type: 'submit',
-          value: value,
-          name: 'commit'
+        {
+          name: 'input',
+          options: {
+            type: 'submit',
+            value: value,
+            name: 'commit'
+          }.merge(options).sort.to_h,
+          block: nil
         }
-        Tag.build('input', attrs.merge(options).sort.to_h)
       end
     end
   end

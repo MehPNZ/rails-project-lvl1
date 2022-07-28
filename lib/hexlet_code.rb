@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-require_relative '../lib/hexlet_code/inputs/text_area'
-require_relative '../lib/hexlet_code/inputs/submit'
-require_relative '../lib/hexlet_code/inputs/input'
-require_relative '../lib/hexlet_code/inputs/label'
-require_relative '../lib/hexlet_code/tag'
-require_relative '../lib/hexlet_code/form'
 require_relative '../lib/hexlet_code/version'
 
 # module
 module HexletCode
+  autoload(:Form, 'hexlet_code/form.rb')
+  autoload(:Tag, 'hexlet_code/tag.rb')
   class Error < StandardError; end
 
   def self.form_for(model, options = {})
@@ -22,6 +18,6 @@ module HexletCode
 
     result = yield(form)
 
-    Tag.build('form', attrs.sort.to_h) { result.join }
+    Tag.build('form', attrs.sort.to_h) { result.map { |el| Tag.build(el[:name], el[:options]) { el[:block] } }.join }
   end
 end

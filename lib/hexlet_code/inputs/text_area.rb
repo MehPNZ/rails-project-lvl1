@@ -5,8 +5,12 @@ module HexletCode
   module Inputs
     # textarea
     class Text
-      def self.build(result, &block)
-        Tag.build('textarea', result.except(:as, :value).sort.to_h, &block)
+      def self.build(options)
+        {
+          name: 'textarea',
+          options: options.except(:as, :value).sort.to_h,
+          block: options[:value] || ''
+        }
       end
     end
   end

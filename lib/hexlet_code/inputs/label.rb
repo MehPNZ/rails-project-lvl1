@@ -4,11 +4,14 @@ module HexletCode
   module Inputs
     # class HexletCode
     class Label
-      def self.build(entity, &block)
-        attrs = {
-          for: entity.to_s
+      def self.build(entity)
+        {
+          name: 'label',
+          options: {
+            for: entity.to_s
+          },
+          block: entity.to_s.capitalize
         }
-        Tag.build('label', attrs, &block)
       end
     end
   end
