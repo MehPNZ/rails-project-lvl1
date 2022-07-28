@@ -5,7 +5,12 @@ require_relative '../lib/hexlet_code/version'
 # module
 module HexletCode
   autoload(:Form, 'hexlet_code/form.rb')
+  autoload(:Input, 'hexlet_code/inputs/input.rb')
+  autoload(:Label, 'hexlet_code/inputs/label.rb')
+  autoload(:Text, 'hexlet_code/inputs/text_area.rb')
+  autoload(:Submit, 'hexlet_code/inputs/submit.rb')
   autoload(:Tag, 'hexlet_code/tag.rb')
+
   class Error < StandardError; end
 
   def self.form_for(model, options = {})
